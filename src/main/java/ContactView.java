@@ -1,8 +1,8 @@
 public class ContactView
 {
-    private Contact selected;
+    private final Contact selected;
 
-    private boolean shouldRemoveContact;
+    private boolean shouldRemoveContact = false;
     private boolean running = true;
 
     public ContactView(Contact contact) {
