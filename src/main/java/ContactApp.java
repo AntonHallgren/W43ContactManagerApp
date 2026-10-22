@@ -33,10 +33,10 @@ public class ContactApp
             case "3", "add", "add contact" -> createNewContact();
             case "2", "find", "find contact" ->
             {
-                Contact contact = findPersonByFirstName();
-                if(contact != null)
+                selected = findPersonByFirstName();
+                while(selected != null)
                 {
-                    printContactInfo(contact);
+                    showContactMenu();
                 }
             }
             case "1", "show", "show contact" ->
@@ -58,6 +58,26 @@ public class ContactApp
         }
     }
 
+
+
+
+    private void showContactMenu()
+    {
+        printContactInfo(selected);
+        IO.println("What do you want to do with " + selected.firstName + "?");
+        IO.println("1: Call");
+        IO.println("2: Edit");
+        IO.println("3: Remove from list");
+        IO.println("4: Go back");
+        String option = IO.readln().toLowerCase();
+        switch (option)
+        {
+            case "1", "call" -> IO.println("This has not been implemented");
+            case "2", "edit" -> editPerson(selected);
+            case "3", "remove" -> deletePerson();//TODO change to delete selected person
+            case "4", "back" -> selected = null;
+        }
+    }
 
     private void createNewContact()
     {
