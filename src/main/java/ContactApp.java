@@ -9,6 +9,8 @@ public class ContactApp
     void main()
     {
         createNewContact();
+        createNewContact();
+        printAllContacts();
     }
 
     void createNewContact()
@@ -21,6 +23,18 @@ public class ContactApp
 
         list.add(newPerson);
 
+    }
+
+    void printAllContacts()
+    {
+        for(Person person : list)
+        {
+            IO.println(person.firstName);
+            IO.println((person.lastName));
+            IO.println(person.phoneNumber);
+            IO.println(person.email);
+
+        }
     }
 
 }
