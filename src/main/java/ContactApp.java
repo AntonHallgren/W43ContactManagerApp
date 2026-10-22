@@ -24,9 +24,7 @@ public class ContactApp
         IO.println("1: Show contacts");
         IO.println("2: Find contact");
         IO.println("3: Add contact");
-        IO.println("4: Edit contact");
-        IO.println("5: Remove contact");
-        IO.println("6: Quit");
+        IO.println("4: Quit");
         String option = IO.readln();
         switch (option.toLowerCase())
         {
@@ -44,16 +42,7 @@ public class ContactApp
                 sortListByName();
                 printAllContacts();
             }
-            case "4", "edit", "edit contact" ->
-            {
-                Contact contactToEdit = findPersonByFirstName();
-                if(contactToEdit != null)
-                {
-                    editPerson(contactToEdit);
-                }
-            }
-            case "5", "remove", "remove contact" -> deletePerson();
-            case "6", "quit" -> running = false;
+            case "4", "quit" -> running = false;
             default -> IO.println("I could not understand you");
         }
     }
@@ -73,8 +62,11 @@ public class ContactApp
         switch (option)
         {
             case "1", "call" -> IO.println("This has not been implemented");
-            case "2", "edit" -> editPerson(selected);
-            case "3", "remove" -> deletePerson();//TODO change to delete selected person
+            case "2", "edit" -> editContact(selected);
+            case "3", "remove" -> {
+                removeContact(selected);
+                selected = null;
+            }
             case "4", "back" -> selected = null;
         }
     }
@@ -128,7 +120,7 @@ public class ContactApp
         return null;
     }
 
-    private void editPerson(Contact contact)
+    private void editContact(Contact contact)
     {
         contact.firstName = IO.readln("New name: ");
         contact.lastName = IO.readln("New last name: ");
@@ -136,15 +128,16 @@ public class ContactApp
         contact.email = IO.readln("New email: ");
     }
 
-    private void deletePerson()
+    private void removeContact(Contact contact)
     {
-        IO.println("Delete a person");
-        Contact toDelete = findPersonByFirstName();
-        if(toDelete == null)
+        if(contact == null)
         {
             return;
         }
-        list.remove(toDelete);
-        IO.println(toDelete.firstName + " has been removed from your contact list");
+        boolean success = list.remove(contact);
+        if(success)
+        {
+            IO.println(contact.firstName + " has been removed from your contact list");
+        }
     }
 }
