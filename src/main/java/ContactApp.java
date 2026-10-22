@@ -81,4 +81,16 @@ public class ContactApp
         person.phoneNumber = IO.readln("New phone number: ");
         person.email = IO.readln("New email: ");
     }
+
+    void deletePerson()
+    {
+        IO.println("Delete a person");
+        Person toDelete = findPersonByFirstName();
+        if(toDelete == null)
+        {
+            return;
+        }
+        list.remove(toDelete);
+        IO.println(toDelete.firstName + " has been removed from your contact list");
+    }
 }
