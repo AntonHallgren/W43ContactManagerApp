@@ -1,2 +1,10 @@
-public class ContactApp {
+public class ContactApp
+{
+
+
+    static void main()
+    {
+
+    }
+
 }
