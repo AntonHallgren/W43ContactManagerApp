@@ -21,6 +21,13 @@ public class ContactApp
                 continueCreating = false;
             }
         }
+        sortListByName();
+        printAllContacts();
+        Person personToEdit = findPersonByFirstName();
+        if(personToEdit != null)
+        {
+            editPerson(personToEdit);
+        }
         printAllContacts();
     }
 
@@ -48,4 +55,30 @@ public class ContactApp
         }
     }
 
+    void sortListByName()
+    {
+        list.sort((a1, a2) -> a1.firstName.compareTo(a2.firstName));
+    }
+
+    Person findPersonByFirstName()
+    {
+        String name = IO.readln("Name of person: ");
+        for(Person person : list)
+        {
+            if(person.firstName.equals(name))
+            {
+                return person;
+            }
+        }
+        IO.println("Could not find a contact with first name " + name);
+        return null;
+    }
+
+    void editPerson(Person person)
+    {
+        person.firstName = IO.readln("New name: ");
+        person.lastName = IO.readln("New last name: ");
+        person.phoneNumber = IO.readln("New phone number: ");
+        person.email = IO.readln("New email: ");
+    }
 }
