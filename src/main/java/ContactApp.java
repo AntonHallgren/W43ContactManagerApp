@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Locale;
 
 public class ContactApp
 {
@@ -21,21 +20,30 @@ public class ContactApp
     void showMainMenu()
     {
         IO.println("What do you want to do?");
-        IO.println("1: Add contact");
-        IO.println("2: Show contacts");
-        IO.println("3: Edit contact");
-        IO.println("4: Remove contact");
-        IO.println("5: Quit");
+        IO.println("1: Show contacts");
+        IO.println("2: Find contact");
+        IO.println("3: Add contact");
+        IO.println("4: Edit contact");
+        IO.println("5: Remove contact");
+        IO.println("6: Quit");
         String option = IO.readln();
         switch (option.toLowerCase())
         {
-            case "1", "add", "add contact" -> createNewContact();
-            case "2", "show", "show contact" ->
+            case "3", "add", "add contact" -> createNewContact();
+            case "2", "find", "find contact" ->
+            {
+                Person person = findPersonByFirstName();
+                if(person != null)
+                {
+                    printContactInfo(person);
+                }
+            }
+            case "1", "show", "show contact" ->
             {
                 sortListByName();
                 printAllContacts();
             }
-            case "3", "edit", "edit contact" ->
+            case "4", "edit", "edit contact" ->
             {
                 Person personToEdit = findPersonByFirstName();
                 if(personToEdit != null)
@@ -43,8 +51,8 @@ public class ContactApp
                     editPerson(personToEdit);
                 }
             }
-            case "4", "remove", "remove contact" -> deletePerson();
-            case "5", "quit" -> running = false;
+            case "5", "remove", "remove contact" -> deletePerson();
+            case "6", "quit" -> running = false;
             default -> IO.println("I could not understand you");
         }
     }
@@ -65,10 +73,7 @@ public class ContactApp
     {
         for(Person person : list)
         {
-            IO.println(person.firstName);
-            IO.println((person.lastName));
-            IO.println(person.phoneNumber);
-            IO.println(person.email);
+            IO.println(person.fullName());
 
         }
     }
@@ -77,6 +82,15 @@ public class ContactApp
     {
         list.sort(Comparator.comparing(a -> a.firstName));
     }
+
+    void printContactInfo(Person person)
+    {
+        IO.println(person.firstName);
+        IO.println((person.lastName));
+        IO.println(person.phoneNumber);
+        IO.println(person.email);
+    }
+
 
     Person findPersonByFirstName()
     {

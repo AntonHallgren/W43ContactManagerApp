@@ -6,4 +6,9 @@ public class Person
     public String phoneNumber;
     public String email;
 
+    public String fullName()
+    {
+        return firstName + " " + lastName;
+    }
+
 }
