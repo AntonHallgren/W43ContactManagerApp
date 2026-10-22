@@ -17,7 +17,7 @@ public class ContactApp
         }
     }
 
-    void showMainMenu()
+    private void showMainMenu()
     {
         IO.println("What do you want to do?");
         IO.println("1: Show contacts");
@@ -57,7 +57,7 @@ public class ContactApp
         }
     }
 
-    void createNewContact()
+    private void createNewContact()
     {
         Person newPerson = new Person();
         newPerson.firstName = IO.readln("Enter first name: ");
@@ -69,7 +69,7 @@ public class ContactApp
 
     }
 
-    void printAllContacts()
+    private void printAllContacts()
     {
         for(Person person : list)
         {
@@ -78,12 +78,12 @@ public class ContactApp
         }
     }
 
-    void sortListByName()
+    private void sortListByName()
     {
         list.sort(Comparator.comparing(a -> a.firstName));
     }
 
-    void printContactInfo(Person person)
+    private void printContactInfo(Person person)
     {
         IO.println(person.firstName);
         IO.println((person.lastName));
@@ -92,7 +92,7 @@ public class ContactApp
     }
 
 
-    Person findPersonByFirstName()
+    private Person findPersonByFirstName()
     {
         String name = IO.readln("Name of person: ");
         for(Person person : list)
@@ -106,7 +106,7 @@ public class ContactApp
         return null;
     }
 
-    void editPerson(Person person)
+    private void editPerson(Person person)
     {
         person.firstName = IO.readln("New name: ");
         person.lastName = IO.readln("New last name: ");
@@ -114,7 +114,7 @@ public class ContactApp
         person.email = IO.readln("New email: ");
     }
 
-    void deletePerson()
+    private void deletePerson()
     {
         IO.println("Delete a person");
         Person toDelete = findPersonByFirstName();
