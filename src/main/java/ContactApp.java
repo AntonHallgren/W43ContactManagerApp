@@ -8,8 +8,19 @@ public class ContactApp
 
     void main()
     {
-        createNewContact();
-        createNewContact();
+        boolean continueCreating = true;
+
+        while(continueCreating)
+        {
+            String input = IO.readln("Do you want to create a new contact? (yes/no): ");
+            if(input.equals("yes"))
+            {
+                createNewContact();
+            }
+            else if(input.equals("no")){
+                continueCreating = false;
+            }
+        }
         printAllContacts();
     }
 
