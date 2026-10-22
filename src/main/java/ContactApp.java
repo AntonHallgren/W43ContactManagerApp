@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
@@ -28,10 +29,7 @@ public class ContactApp
         String option = IO.readln();
         switch (option.toLowerCase())
         {
-            case "1", "add", "add contact" ->
-            {
-                createNewContact();
-            }
+            case "1", "add", "add contact" -> createNewContact();
             case "2", "show", "show contact" ->
             {
                 sortListByName();
@@ -45,14 +43,9 @@ public class ContactApp
                     editPerson(personToEdit);
                 }
             }
-            case "4", "remove", "remove contact" ->
-            {
-                deletePerson();
-            }
-            case "5", "quit" ->
-            {
-                running = false;
-            }
+            case "4", "remove", "remove contact" -> deletePerson();
+            case "5", "quit" -> running = false;
+            default -> IO.println("I could not understand you");
         }
     }
 
@@ -82,7 +75,7 @@ public class ContactApp
 
     void sortListByName()
     {
-        list.sort((a1, a2) -> a1.firstName.compareTo(a2.firstName));
+        list.sort(Comparator.comparing(a -> a.firstName));
     }
 
     Person findPersonByFirstName()
