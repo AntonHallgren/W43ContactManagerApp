@@ -5,7 +5,8 @@ import java.util.List;
 public class ContactApp
 {
 
-    List<Person> list = new ArrayList<>();
+    List<Contact> list = new ArrayList<>();
+    Contact selected = null;
     boolean running = true;
 
 
@@ -32,10 +33,10 @@ public class ContactApp
             case "3", "add", "add contact" -> createNewContact();
             case "2", "find", "find contact" ->
             {
-                Person person = findPersonByFirstName();
-                if(person != null)
+                Contact contact = findPersonByFirstName();
+                if(contact != null)
                 {
-                    printContactInfo(person);
+                    printContactInfo(contact);
                 }
             }
             case "1", "show", "show contact" ->
@@ -45,10 +46,10 @@ public class ContactApp
             }
             case "4", "edit", "edit contact" ->
             {
-                Person personToEdit = findPersonByFirstName();
-                if(personToEdit != null)
+                Contact contactToEdit = findPersonByFirstName();
+                if(contactToEdit != null)
                 {
-                    editPerson(personToEdit);
+                    editPerson(contactToEdit);
                 }
             }
             case "5", "remove", "remove contact" -> deletePerson();
@@ -57,23 +58,24 @@ public class ContactApp
         }
     }
 
+
     private void createNewContact()
     {
-        Person newPerson = new Person();
-        newPerson.firstName = IO.readln("Enter first name: ");
-        newPerson.lastName = IO.readln("Enter last name: ");
-        newPerson.phoneNumber = IO.readln("Enter phone number: ");
-        newPerson.email = IO.readln("Enter email: ");
+        Contact newContact = new Contact();
+        newContact.firstName = IO.readln("Enter first name: ");
+        newContact.lastName = IO.readln("Enter last name: ");
+        newContact.phoneNumber = IO.readln("Enter phone number: ");
+        newContact.email = IO.readln("Enter email: ");
 
-        list.add(newPerson);
+        list.add(newContact);
 
     }
 
     private void printAllContacts()
     {
-        for(Person person : list)
+        for(Contact contact : list)
         {
-            IO.println(person.fullName());
+            IO.println(contact.fullName());
 
         }
     }
@@ -83,41 +85,41 @@ public class ContactApp
         list.sort(Comparator.comparing(a -> a.firstName));
     }
 
-    private void printContactInfo(Person person)
+    private void printContactInfo(Contact contact)
     {
-        IO.println(person.firstName);
-        IO.println((person.lastName));
-        IO.println(person.phoneNumber);
-        IO.println(person.email);
+        IO.println(contact.firstName);
+        IO.println((contact.lastName));
+        IO.println(contact.phoneNumber);
+        IO.println(contact.email);
     }
 
 
-    private Person findPersonByFirstName()
+    private Contact findPersonByFirstName()
     {
         String name = IO.readln("Name of person: ");
-        for(Person person : list)
+        for(Contact contact : list)
         {
-            if(person.firstName.equals(name))
+            if(contact.firstName.equals(name))
             {
-                return person;
+                return contact;
             }
         }
         IO.println("Could not find a contact with first name " + name);
         return null;
     }
 
-    private void editPerson(Person person)
+    private void editPerson(Contact contact)
     {
-        person.firstName = IO.readln("New name: ");
-        person.lastName = IO.readln("New last name: ");
-        person.phoneNumber = IO.readln("New phone number: ");
-        person.email = IO.readln("New email: ");
+        contact.firstName = IO.readln("New name: ");
+        contact.lastName = IO.readln("New last name: ");
+        contact.phoneNumber = IO.readln("New phone number: ");
+        contact.email = IO.readln("New email: ");
     }
 
     private void deletePerson()
     {
         IO.println("Delete a person");
-        Person toDelete = findPersonByFirstName();
+        Contact toDelete = findPersonByFirstName();
         if(toDelete == null)
         {
             return;
