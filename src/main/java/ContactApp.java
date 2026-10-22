@@ -1,34 +1,59 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ContactApp
 {
 
     List<Person> list = new ArrayList<>();
+    boolean running = true;
+
 
     void main()
     {
-        boolean continueCreating = true;
-
-        while(continueCreating)
+        while(running)
         {
-            String input = IO.readln("Do you want to create a new contact? (yes/no): ");
-            if(input.equals("yes"))
+            showMainMenu();
+        }
+    }
+
+    void showMainMenu()
+    {
+        IO.println("What do you want to do?");
+        IO.println("1: Add contact");
+        IO.println("2: Show contacts");
+        IO.println("3: Edit contact");
+        IO.println("4: Remove contact");
+        IO.println("5: Quit");
+        String option = IO.readln();
+        switch (option.toLowerCase())
+        {
+            case "1", "add", "add contact" ->
             {
                 createNewContact();
             }
-            else if(input.equals("no")){
-                continueCreating = false;
+            case "2", "show", "show contact" ->
+            {
+                sortListByName();
+                printAllContacts();
+            }
+            case "3", "edit", "edit contact" ->
+            {
+                Person personToEdit = findPersonByFirstName();
+                if(personToEdit != null)
+                {
+                    editPerson(personToEdit);
+                }
+            }
+            case "4", "remove", "remove contact" ->
+            {
+                deletePerson();
+            }
+            case "5", "quit" ->
+            {
+                running = false;
             }
         }
-        sortListByName();
-        printAllContacts();
-        Person personToEdit = findPersonByFirstName();
-        if(personToEdit != null)
-        {
-            editPerson(personToEdit);
-        }
-        printAllContacts();
     }
 
     void createNewContact()
