@@ -11,4 +11,11 @@ public class Contact
         return firstName + " " + lastName;
     }
 
+    public String nameReverseOrder()
+    {
+        return lastName + " " + firstName;
+    }
+
+
+
 }

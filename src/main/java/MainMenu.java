@@ -7,6 +7,13 @@ public class MainMenu {
     private final List<Contact> list = new ArrayList<>();
     private boolean running = true;
 
+    public enum SortingMethod{
+        FIRST_NAME,
+        LAST_NAME
+    }
+
+    private SortingMethod sortingMethod = SortingMethod.FIRST_NAME;
+    private boolean reverseOrder;
 
     public void showMainMenu()
     {
@@ -14,23 +21,39 @@ public class MainMenu {
         IO.println("1: Show contacts");
         IO.println("2: Find contact");
         IO.println("3: Add contact");
-        IO.println("4: Quit");
-        String option = IO.readln();
-        switch (option.toLowerCase())
+        IO.println("4: Order contacts");
+        IO.println("5: Quit");
+        String option = IO.readln().toLowerCase();
+        switch (option)
         {
             case "3", "add", "add contact" -> createNewContact();
             case "2", "find", "find contact" -> findContact();
             case "1", "show", "show contact" ->
             {
-                sortListByName();
+                sort();
                 printAllContacts();
             }
-            case "4", "quit" -> running = false;
+            case "5", "quit" -> running = false;
+            case "4", "order" -> orderMenu();
             default -> IO.println("I could not understand you");
         }
     }
 
-
+    private void orderMenu()
+    {
+        IO.println("Chose order");
+        IO.println("1: First name");
+        IO.println("2: Last name");
+        IO.println("3: Reverse order");
+        IO.println("4: Exit");
+        String option = IO.readln().toLowerCase();
+        switch (option)
+        {
+            case "1" -> sortingMethod = SortingMethod.FIRST_NAME;
+            case "2" -> sortingMethod = SortingMethod.LAST_NAME;
+            case "3" -> reverseOrder = !reverseOrder;
+        }
+    }
 
 
 
@@ -56,9 +79,17 @@ public class MainMenu {
         }
     }
 
-    private void sortListByName()
+    private void sort()
     {
-        list.sort(Comparator.comparing(a -> a.firstName));
+        Comparator<Contact> comparator = Comparator.comparing(Contact::fullName);
+        switch (sortingMethod)
+        {
+            case SortingMethod.FIRST_NAME -> comparator = Comparator.comparing(Contact::fullName, String.CASE_INSENSITIVE_ORDER);
+            case SortingMethod.LAST_NAME -> comparator = Comparator.comparing(Contact::nameReverseOrder, String.CASE_INSENSITIVE_ORDER);
+        }
+
+        comparator = reverseOrder ? comparator.reversed() : comparator;
+        list.sort(comparator);
     }
 
 
