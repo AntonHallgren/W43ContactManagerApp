@@ -33,10 +33,12 @@ public class ContactView
 
     private void printContactInfo(Contact contact)
     {
-        IO.println(contact.firstName);
-        IO.println((contact.lastName));
-        IO.println(contact.phoneNumber);
-        IO.println(contact.email);
+        IO.println();
+        IO.println("First name:   " + contact.firstName);
+        IO.println("Last name:    " + contact.lastName);
+        IO.println("Phone number: " + contact.phoneNumber);
+        IO.println("Email:        " + contact.email);
+        IO.println();
     }
 
 

@@ -1,5 +1,5 @@
 public class ContactEditor {
-    private Contact contact;
+    private final Contact contact;
 
     private boolean running = true;
 
