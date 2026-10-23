@@ -11,7 +11,7 @@ public class ContactView
 
     public void showMenu()
     {
-        printContactInfo(selected);
+        printContactInfo();
         IO.println("What do you want to do with " + selected.firstName + "?");
         IO.println("1: Call");
         IO.println("2: Edit");
@@ -21,7 +21,7 @@ public class ContactView
         switch (option)
         {
             case "1", "call" -> IO.println("This has not been implemented");
-            case "2", "edit" -> editContact(selected);
+            case "2", "edit" -> editContact();
             case "3", "remove" -> {
                 shouldRemoveContact = true;
                 running = false;
@@ -31,20 +31,20 @@ public class ContactView
         }
     }
 
-    private void printContactInfo(Contact contact)
+    private void printContactInfo()
     {
         IO.println();
-        IO.println("First name:   " + contact.firstName);
-        IO.println("Last name:    " + contact.lastName);
-        IO.println("Phone number: " + contact.phoneNumber);
-        IO.println("Email:        " + contact.email);
+        IO.println("First name:   " + selected.firstName);
+        IO.println("Last name:    " + selected.lastName);
+        IO.println("Phone number: " + selected.phoneNumber);
+        IO.println("Email:        " + selected.email);
         IO.println();
     }
 
 
-    private void editContact(Contact contact)
+    private void editContact()
     {
-        ContactEditor editor = new ContactEditor(contact);
+        ContactEditor editor = new ContactEditor(selected);
         while(editor.isRunning())
         {
             editor.showMenu();
