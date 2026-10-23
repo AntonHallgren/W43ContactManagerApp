@@ -27,6 +27,7 @@ public class ContactView
                 running = false;
             }
             case "4", "back" -> running = false;
+            default -> IO.println("I could not understand you");
         }
     }
 
@@ -41,10 +42,11 @@ public class ContactView
 
     private void editContact(Contact contact)
     {
-        contact.firstName = IO.readln("New name: ");
-        contact.lastName = IO.readln("New last name: ");
-        contact.phoneNumber = IO.readln("New phone number: ");
-        contact.email = IO.readln("New email: ");
+        ContactEditor editor = new ContactEditor(contact);
+        while(editor.isRunning())
+        {
+            editor.showMenu();
+        }
     }
 
 
