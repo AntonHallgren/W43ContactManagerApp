@@ -1,4 +1,4 @@
-
+import java.time.LocalDateTime;
 
 public class Contact
 {
@@ -7,6 +7,7 @@ public class Contact
     private String lastName;
     private String phoneNumber;
     private String email;
+    private final LocalDateTime timeCreated;
 
     public Contact(String firstName, String lastName, String phoneNumber, String email)
     {
@@ -15,6 +16,7 @@ public class Contact
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.email = email;
+        timeCreated = LocalDateTime.now();
     }
 
     public String fullName()
@@ -60,5 +62,9 @@ public class Contact
     public void setFirstName(String firstName)
     {
         this.firstName = firstName;
+    }
+
+    public LocalDateTime getTimeCreated() {
+        return timeCreated;
     }
 }

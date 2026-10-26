@@ -9,7 +9,8 @@ public class MainMenu {
 
     public enum SortingMethod{
         FIRST_NAME,
-        LAST_NAME
+        LAST_NAME,
+        TIME_CREATED
     }
 
     private SortingMethod sortingMethod = SortingMethod.FIRST_NAME;
@@ -44,14 +45,16 @@ public class MainMenu {
         IO.println("Chose order");
         IO.println("1: First name");
         IO.println("2: Last name");
-        IO.println("3: Reverse order");
-        IO.println("4: Exit");
+        IO.println("3: Time created");
+        IO.println("4: Reverse order");
+        IO.println("5: Exit");
         String option = IO.readln().toLowerCase();
         switch (option)
         {
             case "1" -> sortingMethod = SortingMethod.FIRST_NAME;
             case "2" -> sortingMethod = SortingMethod.LAST_NAME;
-            case "3" -> reverseOrder = !reverseOrder;
+            case "3" -> sortingMethod = SortingMethod.TIME_CREATED;
+            case "4" -> reverseOrder = !reverseOrder;
         }
     }
 
@@ -93,6 +96,10 @@ public class MainMenu {
             {
                 comparator = Comparator.comparing(Contact::getLastName, String.CASE_INSENSITIVE_ORDER);
                 comparator = comparator.thenComparing(Contact::getFirstName, String.CASE_INSENSITIVE_ORDER);
+            }
+            case SortingMethod.TIME_CREATED ->
+            {
+                comparator = Comparator.comparing(Contact::getTimeCreated);
             }
         }
 
