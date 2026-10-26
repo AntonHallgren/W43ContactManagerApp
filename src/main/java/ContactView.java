@@ -12,7 +12,7 @@ public class ContactView
     public void showMenu()
     {
         printContactInfo();
-        IO.println("What do you want to do with " + selected.firstName + "?");
+        IO.println("What do you want to do with " + selected.getFirstName() + "?");
         IO.println("1: Call");
         IO.println("2: Edit");
         IO.println("3: Remove from list");
@@ -34,10 +34,10 @@ public class ContactView
     private void printContactInfo()
     {
         IO.println();
-        IO.println("First name:   " + selected.firstName);
-        IO.println("Last name:    " + selected.lastName);
-        IO.println("Phone number: " + selected.phoneNumber);
-        IO.println("Email:        " + selected.email);
+        IO.println("First name:   " + selected.getFirstName());
+        IO.println("Last name:    " + selected.getLastName());
+        IO.println("Phone number: " + selected.getPhoneNumber());
+        IO.println("Email:        " + selected.getEmail());
         IO.println();
     }
 

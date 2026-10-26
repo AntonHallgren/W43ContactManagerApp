@@ -29,18 +29,22 @@ public class ContactEditor {
 
     private void editName()
     {
-        contact.firstName = IO.readln("Enter new first name: ");
-        contact.lastName = IO.readln("Enter new last name: ");
+        String firstName = IO.readln("Enter new first name: ");
+        String lastName = IO.readln("Enter new last name: ");
+        contact.setFirstName(firstName);
+        contact.setLastName(lastName);
     }
 
     private void editNumber()
     {
-        contact.phoneNumber = IO.readln("Enter new phone number: ");
+        String phoneNumber = IO.readln("Enter new phone number: ");
+        contact.setPhoneNumber(phoneNumber);
     }
 
     private void editEmail()
     {
-        contact.email = IO.readln("Enter new email: ");
+        String email = IO.readln("Enter new email: ");
+        contact.setEmail(email);
     }
 
     private void editAll()

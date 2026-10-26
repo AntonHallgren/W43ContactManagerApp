@@ -60,12 +60,12 @@ public class MainMenu {
 
     private void createNewContact()
     {
-        Contact newContact = new Contact();
-        newContact.firstName = IO.readln("Enter first name: ");
-        newContact.lastName = IO.readln("Enter last name: ");
-        newContact.phoneNumber = IO.readln("Enter phone number: ");
-        newContact.email = IO.readln("Enter email: ");
+        String firstName = IO.readln("Enter first name: ");
+        String lastName = IO.readln("Enter last name: ");
+        String phoneNumber = IO.readln("Enter phone number: ");
+        String email = IO.readln("Enter email: ");
 
+        Contact newContact = new Contact(firstName, lastName, phoneNumber, email);
         list.add(newContact);
 
     }
@@ -84,8 +84,16 @@ public class MainMenu {
         Comparator<Contact> comparator = Comparator.comparing(Contact::fullName);
         switch (sortingMethod)
         {
-            case SortingMethod.FIRST_NAME -> comparator = Comparator.comparing(Contact::fullName, String.CASE_INSENSITIVE_ORDER);
-            case SortingMethod.LAST_NAME -> comparator = Comparator.comparing(Contact::nameReverseOrder, String.CASE_INSENSITIVE_ORDER);
+            case SortingMethod.FIRST_NAME ->
+            {
+                comparator = Comparator.comparing(Contact::getFirstName, String.CASE_INSENSITIVE_ORDER);
+                comparator = comparator.thenComparing(Contact::getLastName, String.CASE_INSENSITIVE_ORDER);
+            }
+            case SortingMethod.LAST_NAME ->
+            {
+                comparator = Comparator.comparing(Contact::getLastName, String.CASE_INSENSITIVE_ORDER);
+                comparator = comparator.thenComparing(Contact::getFirstName, String.CASE_INSENSITIVE_ORDER);
+            }
         }
 
         comparator = reverseOrder ? comparator.reversed() : comparator;
@@ -117,7 +125,7 @@ public class MainMenu {
         String name = IO.readln("Name of person: ");
         for(Contact contact : list)
         {
-            if(contact.firstName.equals(name))
+            if(contact.getFirstName().equals(name))
             {
                 return contact;
             }
@@ -135,7 +143,7 @@ public class MainMenu {
         boolean success = list.remove(contact);
         if(success)
         {
-            IO.println(contact.firstName + " has been removed from your contact list");
+            IO.println(contact.fullName() + " has been removed from your contact list");
         }
     }
 
