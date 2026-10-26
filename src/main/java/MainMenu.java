@@ -1,3 +1,4 @@
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -15,6 +16,8 @@ public class MainMenu {
 
     private SortingMethod sortingMethod = SortingMethod.FIRST_NAME;
     private boolean reverseOrder;
+
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd, HH:mm:ss");
 
     public void showMainMenu()
     {
@@ -77,7 +80,13 @@ public class MainMenu {
     {
         for(Contact contact : list)
         {
-            IO.println(contact.fullName());
+            switch (sortingMethod)
+            {
+                case SortingMethod.FIRST_NAME -> IO.println(contact.fullName());
+                case SortingMethod.LAST_NAME -> IO.println((contact.nameReverseOrder()));
+                case SortingMethod.TIME_CREATED ->
+                    IO.println(String.format("%s, added %s", contact.fullName(), contact.getTimeCreated().format(FORMATTER)));
+            }
 
         }
     }
