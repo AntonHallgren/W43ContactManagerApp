@@ -97,10 +97,7 @@ public class MainMenu {
                 comparator = Comparator.comparing(Contact::getLastName, String.CASE_INSENSITIVE_ORDER);
                 comparator = comparator.thenComparing(Contact::getFirstName, String.CASE_INSENSITIVE_ORDER);
             }
-            case SortingMethod.TIME_CREATED ->
-            {
-                comparator = Comparator.comparing(Contact::getTimeCreated);
-            }
+            case SortingMethod.TIME_CREATED -> comparator = Comparator.comparing(Contact::getTimeCreated);
         }
 
         comparator = reverseOrder ? comparator.reversed() : comparator;
@@ -130,15 +127,40 @@ public class MainMenu {
     private Contact findPersonByFirstName()
     {
         String name = IO.readln("Name of person: ");
+        List<Contact> matchingPeople = new ArrayList<>();
         for(Contact contact : list)
         {
-            if(contact.getFirstName().equals(name))
+            if(
+                    contact.getFirstName().equals(name)
+                    || contact.getLastName().equals(name)
+                    || contact.fullName().equals(name)
+            )
             {
-                return contact;
+                matchingPeople.add(contact);
             }
         }
-        IO.println("Could not find a contact with first name " + name);
-        return null;
+        if(matchingPeople.isEmpty())
+        {
+            IO.println("Could not find a contact with first name " + name);
+            return null;
+        }
+        if(matchingPeople.size() == 1)
+        {
+            return matchingPeople.getFirst();
+        }
+        IO.println("There are multiple possible matches. Who did you want to find? ");
+        for(int i = 0; i < matchingPeople.size(); i++)
+        {
+            IO.println(String.format("%d: %s", i+1, matchingPeople.get(i).fullName()));
+        }
+        //Need some security check on this
+        int picked = Integer.parseInt(IO.readln()) -1;
+        if(picked < 0 || picked >= matchingPeople.size())
+        {
+            IO.println("Invalid");
+            return null;
+        }
+        return matchingPeople.get(picked);
     }
 
     private void removeContact(Contact contact)
